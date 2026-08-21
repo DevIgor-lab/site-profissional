@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Igor Augusto | Dev Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #2a2a3a;
+      --accent: #00ff99;
+      --accent2: #7c3aed;
+      --accent3: #ff6b35;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      overflow-x: hidden;
+    }
+
+    /* ── CURSOR ── */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed; pointer-events: none; z-index: 9999;
+      transition: transform 0.1s, opacity 0.2s;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      position: fixed; pointer-events: none; z-index: 9998;
+      transition: transform 0.18s ease, width 0.2s, height 0.2s, opacity 0.2s;
+      opacity: 0.5;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1; opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.4rem;
+      color: var(--accent);
+      letter-spacing: -1px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,255,153,0.08) 0%, transparent 70%);
+      top: 10%; left: -10%; pointer-events: none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+    .hero-glow2 {
+      position: absolute; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
+      bottom: 0; right: -5%; pointer-events: none;
+      animation: pulse 8s ease-in-out infinite reverse;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+
+    .hero-tag {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.7rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-tag::before {
+      content: ''; width: 40px; height: 1px; background: var(--accent);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800; line-height: 0.95;
+      letter-spacing: -3px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero-title .accent { color: var(--accent); }
+    .hero-title .stroke {
+      -webkit-text-stroke: 1px var(--text);
+      color: transparent;
+    }
+    .hero-sub {
+      margin-top: 2rem; max-width: 480px;
+      color: var(--muted); font-size: 0.9rem; line-height: 1.8;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-cta {
+      margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn {
+      padding: 0.85rem 2rem; border: none; cursor: pointer;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--accent); color: #000;
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: #00cc7a; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,255,153,0.25); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-stats {
+      margin-top: 5rem;
+      display: flex; gap: 3rem; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .stat-num {
+      font-family: var(--font-display); font-size: 2.5rem;
+      font-weight: 800; color: var(--accent); line-height: 1;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── SECTION BASE ── */
+    section { position: relative; z-index: 2; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .section-num {
+      font-size: 0.75rem; color: var(--accent);
+      letter-spacing: 0.2em;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -1px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 6rem 3rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--card); border: 1px solid var(--border);
+      padding: 2rem; position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .skill-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,255,153,0.04), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .skill-card:hover::before { opacity: 1; }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .skill-name {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .skill-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem;
+    }
+    .tag {
+      font-size: 0.7rem; padding: 0.2rem 0.6rem;
+      background: rgba(0,255,153,0.08);
+      border: 1px solid rgba(0,255,153,0.2);
+      color: var(--accent);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;
+    }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .project-thumb {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative; overflow: hidden;
+    }
+    .project-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--card));
+    }
+    .thumb-1 { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+    .thumb-2 { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+    .thumb-3 { background: linear-gradient(135deg, #0d0d0d, #1a0a2e, #2d1b69); }
+    .thumb-4 { background: linear-gradient(135deg, #0a1628, #1e3a5f, #0d7377); }
+    .thumb-5 { background: linear-gradient(135deg, #1a0a00, #3d1c02, #6b3322); }
+    .thumb-6 { background: linear-gradient(135deg, #0a1a0a, #0d2b0d, #1a4a1a); }
+    .project-body { padding: 1.5rem; }
+    .project-num {
+      font-size: 0.7rem; color: var(--accent);
+      letter-spacing: 0.2em; margin-bottom: 0.5rem;
+    }
+    .project-name {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .project-links { display: flex; gap: 1rem; }
+    .project-link {
+      font-size: 0.75rem; color: var(--muted); text-decoration: none;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); }
+
+    /* ── PROCESS ── */
+    #process { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0;
+      border: 1px solid var(--border);
+    }
+    .process-step {
+      padding: 2.5rem 2rem; border-right: 1px solid var(--border);
+      position: relative; transition: background 0.3s;
+    }
+    .process-step:last-child { border-right: none; }
+    .process-step:hover { background: var(--card); }
+    .step-num {
+      font-family: var(--font-display); font-size: 3rem; font-weight: 800;
+      color: rgba(0,255,153,0.1); margin-bottom: 1rem; line-height: 1;
+    }
+    .step-title {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      margin-bottom: 0.5rem; color: var(--accent);
+    }
+    .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── BUDGET SECTION ── */
+    #orcamento { background: var(--bg); }
+    .budget-wrapper {
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start;
+    }
+    .budget-info h3 {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+      margin-bottom: 1.5rem; color: var(--accent);
+    }
+    .budget-info p { font-size: 0.85rem; color: var(--muted); line-height: 1.9; margin-bottom: 1rem; }
+    .budget-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .budget-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem; border: 1px solid var(--border);
+      font-size: 0.8rem; transition: border-color 0.2s;
+    }
+    .budget-item:hover { border-color: var(--accent); }
+    .budget-item-icon { font-size: 1.2rem; width: 2rem; text-align: center; }
+    .budget-item-text { flex: 1; }
+    .budget-item-text strong { display: block; color: var(--text); margin-bottom: 0.2rem; }
+    .budget-item-text span { color: var(--muted); font-size: 0.75rem; }
+
+    /* ── FORM ── */
+    .budget-form {
+      background: var(--card); border: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+    .form-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .form-subtitle { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label {
+      display: block; font-size: 0.75rem; color: var(--accent);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    input, textarea, select {
+      width: 100%; background: var(--surface);
+      border: 1px solid var(--border); color: var(--text);
+      font-family: var(--font-mono); font-size: 0.85rem;
+      padding: 0.8rem 1rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,255,153,0.08);
+    }
+    select option { background: var(--surface); }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .form-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .checkbox-item {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.7rem; border: 1px solid var(--border);
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+      font-size: 0.8rem;
+    }
+    .checkbox-item:hover { border-color: var(--accent); background: rgba(0,255,153,0.03); }
+    .checkbox-item input[type="checkbox"] {
+      width: 16px; height: 16px; padding: 0; flex-shrink: 0;
+      accent-color: var(--accent);
+    }
+
+    .range-wrapper { display: flex; align-items: center; gap: 1rem; }
+    input[type="range"] {
+      flex: 1; height: 4px; padding: 0;
+      background: var(--border); border: none; cursor: pointer;
+      accent-color: var(--accent);
+    }
+    .range-val {
+      font-family: var(--font-display); font-weight: 700;
+      color: var(--accent); font-size: 1rem; min-width: 90px;
+    }
+
+    .form-submit {
+      margin-top: 2rem; width: 100%;
+      padding: 1rem; background: var(--accent); border: none;
+      color: #000; font-family: var(--font-display); font-size: 1rem;
+      font-weight: 800; letter-spacing: 0.05em; cursor: pointer;
+      transition: all 0.25s; text-transform: uppercase;
+    }
+    .form-submit:hover { background: #00cc7a; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,255,153,0.3); }
+
+    /* SUCCESS STATE */
+    .form-success {
+      display: none; text-align: center; padding: 3rem 1rem;
+    }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .form-success h3 {
+      font-family: var(--font-display); font-size: 1.5rem;
+      font-weight: 800; color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .form-success p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
+
+    /* ── CONTACT BAR ── */
+    .contact-bar {
+      background: var(--accent); color: #000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 2rem 3rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .contact-bar-text {
+      font-family: var(--font-display); font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 800;
+    }
+    .contact-links { display: flex; gap: 1.5rem; }
+    .contact-links a {
+      color: #000; text-decoration: none; font-size: 0.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.4rem;
+      border-bottom: 1px solid rgba(0,0,0,0.3);
+      padding-bottom: 2px; transition: border-color 0.2s;
+    }
+    .contact-links a:hover { border-color: #000; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-bar {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: var(--accent); z-index: 200;
+      transition: width 0.1s;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-title { letter-spacing: -2px; }
+      .budget-wrapper { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-step { border-bottom: 1px solid var(--border); }
+      .contact-bar { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 4rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      .form-checkboxes { grid-template-columns: 1fr; }
+      .hero-stats { gap: 2rem; }
+      .process-steps { grid-template-columns: 1fr; }
+      .budget-form { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="scroll-bar" id="scrollBar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">DEV<span>.IGOR</span></a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projetos</a></li>
+    <li><a href="#process">Processo</a></li>
+    <li><a href="#orcamento">Orçamento</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-tag">Disponível para projetos</div>
+  <h1 class="hero-title">
+    Código<br>
+    que <span class="accent">resolve</span><br>
+    <span class="stroke">problemas</span>
+  </h1>
+  <p class="hero-sub">
+    Desenvolvimento web full-stack focado em experiências rápidas, escaláveis e bonitas.
+    Da ideia ao deploy — entrego soluções que funcionam de verdade.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">→ Ver projetos</a>
+    <a href="#orcamento" class="btn btn-outline">Solicitar orçamento</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num" data-target="47">0</span>
+      <span class="stat-label">Projetos entregues</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="5">0</span>
+      <span class="stat-label">Anos de experiência</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="30">0</span>
+      <span class="stat-label">Clientes satisfeitos</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01 /</span>
+      <h2 class="section-title">Stack & Habilidades</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">Frontend</div>
+        <div class="skill-desc">Interfaces modernas e responsivas com foco em performance e experiência do usuário.</div>
+        <div class="skill-tags">
+          <span class="tag">React</span><span class="tag">Next.js</span>
+          <span class="tag">TypeScript</span><span class="tag">Tailwind</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-name">Backend</div>
+        <div class="skill-desc">APIs robustas, arquitetura escalável e integrações que mantêm tudo funcionando.</div>
+        <div class="skill-tags">
+          <span class="tag">Node.js</span><span class="tag">Python</span>
+          <span class="tag">REST</span><span class="tag">GraphQL</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">Banco de Dados</div>
+        <div class="skill-desc">Modelagem eficiente de dados relacionais e não-relacionais para cada contexto.</div>
+        <div class="skill-tags">
+          <span class="tag">PostgreSQL</span><span class="tag">MongoDB</span>
+          <span class="tag">Redis</span><span class="tag">Prisma</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">Cloud & DevOps</div>
+        <div class="skill-desc">Deploy, CI/CD e infraestrutura para sistemas confiáveis em produção.</div>
+        <div class="skill-tags">
+          <span class="tag">AWS</span><span class="tag">Docker</span>
+          <span class="tag">Vercel</span><span class="tag">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📱</div>
+        <div class="skill-name">Mobile</div>
+        <div class="skill-desc">Aplicativos nativos e híbridos para iOS e Android com experiência fluida.</div>
+        <div class="skill-tags">
+          <span class="tag">React Native</span><span class="tag">Expo</span>
+          <span class="tag">PWA</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Integrações & IA</div>
+        <div class="skill-desc">Automações, chatbots, APIs externas e recursos de inteligência artificial aplicada.</div>
+        <div class="skill-tags">
+          <span class="tag">OpenAI</span><span class="tag">Webhooks</span>
+          <span class="tag">Zapier</span><span class="tag">n8n</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02 /</span>
+      <h2 class="section-title">Projetos</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-thumb thumb-1">🛒</div>
+        <div class="project-body">
+          <div class="project-num">P.01</div>
+          <div class="project-name">E-commerce Platform</div>
+          <div class="project-desc">Plataforma completa de e-commerce com painel admin, gestão de estoque e gateway de pagamento integrado.</div>
+          <div class="project-stack">
+            <span class="tag">Next.js</span><span class="tag">Stripe</span><span class="tag">PostgreSQL</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb thumb-2">📊</div>
+        <div class="project-body">
+          <div class="project-num">P.02</div>
+          <div class="project-name">Dashboard Analytics</div>
+          <div class="project-desc">Dashboard em tempo real com visualizações de dados, relatórios automáticos e alertas configuráveis.</div>
+          <div class="project-stack">
+            <span class="tag">React</span><span class="tag">D3.js</span><span class="tag">WebSocket</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb thumb-3">🤝</div>
+        <div class="project-body">
+          <div class="project-num">P.03</div>
+          <div class="project-name">SaaS CRM</div>
+          <div class="project-desc">Sistema de gestão de clientes multi-tenant com automações de marketing e pipeline de vendas.</div>
+          <div class="project-stack">
+            <span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Redis</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb thumb-4">💬</div>
+        <div class="project-body">
+          <div class="project-num">P.04</div>
+          <div class="project-name">Chat em Tempo Real</div>
+          <div class="project-desc">Aplicativo de mensagens com salas, canais, envio de arquivos e notificações push.</div>
+          <div class="project-stack">
+            <span class="tag">Socket.io</span><span class="tag">React</span><span class="tag">AWS S3</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb thumb-5">🏥</div>
+        <div class="project-body">
+          <div class="project-num">P.05</div>
+          <div class="project-name">Sistema de Agendamento</div>
+          <div class="project-desc">Plataforma de agendamento para clínicas com confirmação automática, lembretes por WhatsApp e prontuário digital.</div>
+          <div class="project-stack">
+            <span class="tag">Next.js</span><span class="tag">Twilio</span><span class="tag">Prisma</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb thumb-6">📱</div>
+        <div class="project-body">
+          <div class="project-num">P.06</div>
+          <div class="project-name">App de Delivery</div>
+          <div class="project-desc">Aplicativo móvel de delivery com rastreamento em tempo real, múltiplos estabelecimentos e sistema de avaliações.</div>
+          <div class="project-stack">
+            <span class="tag">React Native</span><span class="tag">Maps API</span><span class="tag">Node.js</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03 /</span>
+      <h2 class="section-title">Como trabalho</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Briefing</div>
+        <div class="step-desc">Entendo sua necessidade, público-alvo, escopo e restrições do projeto. Aqui nasce o alinhamento.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Proposta</div>
+        <div class="step-desc">Documento técnico com escopo, prazo, tecnologias e investimento. Sem surpresas.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Desenvolvimento</div>
+        <div class="step-desc">Sprints semanais com entregas parciais e comunicação constante via canal direto.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Revisão</div>
+        <div class="step-desc">Rodadas de ajuste com sua participação ativa. O produto final é o que você aprova.</div>
+      </div>
+      <div class="process-step" style="border-right:none">
+        <div class="step-num">05</div>
+        <div class="step-title">Deploy & Suporte</div>
+        <div class="step-desc">Publicação, documentação e 30 dias de suporte gratuito pós-entrega.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="orcamento">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">04 /</span>
+      <h2 class="section-title">Solicitar Orçamento</h2>
+    </div>
+    <div class="budget-wrapper">
+      <div class="budget-info">
+        <h3>Vamos construir algo juntos?</h3>
+        <p>Preencha o formulário ao lado com os detalhes do seu projeto. Respondo em até 24 horas com uma proposta personalizada.</p>
+        <p>Aceito projetos de qualquer porte — desde landing pages até sistemas complexos. Cada projeto recebe atenção total.</p>
+        <div class="budget-items">
+          <div class="budget-item">
+            <span class="budget-item-icon">⚡</span>
+            <div class="budget-item-text">
+              <strong>Resposta rápida</strong>
+              <span>Retorno em até 24h úteis</span>
+            </div>
+          </div>
+          <div class="budget-item">
+            <span class="budget-item-icon">📋</span>
+            <div class="budget-item-text">
+              <strong>Proposta detalhada</strong>
+              <span>Escopo, prazo e investimento</span>
+            </div>
+          </div>
+          <div class="budget-item">
+            <span class="budget-item-icon">🔒</span>
+            <div class="budget-item-text">
+              <strong>NDA disponível</strong>
+              <span>Sigilo garantido ao seu projeto</span>
+            </div>
+          </div>
+          <div class="budget-item">
+            <span class="budget-item-icon">🎯</span>
+            <div class="budget-item-text">
+              <strong>Orçamento sem compromisso</strong>
+              <span>Conheça as possibilidades antes de decidir</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="budget-form">
+        <div id="formContent">
+          <div class="form-title">Conte sobre seu projeto</div>
+          <div class="form-subtitle">// Campos marcados são essenciais para o orçamento</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome *</label>
+              <input type="text" id="nome" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <label for="empresa">Empresa</label>
+              <input type="text" id="empresa" placeholder="Nome da empresa">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">E-mail *</label>
+              <input type="email" id="email" placeholder="igoraugusto300al@gmail.com" required>
+            </div>
+            <div class="form-group">
+              <label for="whatsapp">WhatsApp</label>
+              <input type="tel" id="whatsapp" placeholder="(11) 94343-0590">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tipo">Tipo de projeto *</label>
+            <select id="tipo" required>
+              <option value="">Selecione...</option>
+              <option value="site">Site institucional / landing page</option>
+              <option value="ecommerce">E-commerce / loja virtual</option>
+              <option value="sistema">Sistema web / SaaS / painel</option>
+              <option value="app">Aplicativo mobile</option>
+              <option value="api">API / backend / integração</option>
+              <option value="automacao">Automação / chatbot / IA</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Funcionalidades desejadas</label>
+            <div class="form-checkboxes">
+              <label class="checkbox-item">
+                <input type="checkbox" value="login"> Login / autenticação
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="pagamento"> Pagamento online
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="painel"> Painel administrativo
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="api"> Integração com API
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="notificacoes"> Notificações / e-mails
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="relatorios"> Relatórios / dashboard
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="mobile"> Versão mobile
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="ia"> Recursos de IA
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prazo">Prazo desejado *</label>
+            <select id="prazo" required>
+              <option value="">Selecione...</option>
+              <option value="urgente">Urgente (até 2 semanas)</option>
+              <option value="1mes">1 mês</option>
+              <option value="2meses">2 meses</option>
+              <option value="3meses">3 meses</option>
+              <option value="flexivel">Flexível</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Faixa de investimento *</label>
+            <div class="range-wrapper">
+              <input type="range" id="budget" min="1" max="10" value="3" step="1" oninput="updateBudget(this.value)">
+              <span class="range-val" id="budgetVal">R$ 3k–5k</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="descricao">Descreva seu projeto *</label>
+            <textarea id="descricao" rows="4" placeholder="Qual problema você quer resolver? Quem vai usar? Tem referências visuais ou funcionais?" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="referencias">Links de referência</label>
+            <input type="text" id="referencias" placeholder="https://... (sites, apps, figma, notion...)">
+          </div>
+
+          <button class="form-submit" onclick="submitForm()">
+            → Enviar solicitação de orçamento
+          </button>
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <h3>Solicitação enviada!</h3>
+          <p>Recebi seu pedido de orçamento e entrarei em contato em até <strong style="color:var(--accent)">24 horas úteis</strong> com uma proposta personalizada.<br><br>Fique de olho no seu e-mail — e se preferir algo mais rápido, me chame no WhatsApp: (11) 94343-0590.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar">
+  <div class="contact-bar-text">Pronto para começar? Vamos conversar.</div>
+  <div class="contact-links">
+    <a href="/cdn-cgi/l/email-protection#1e6d7b6b5e7b737f7772307d7173">✉ E-mail</a>
+    <a href="https://wa.me/5511943430590" target="_blank">💬 WhatsApp</a>
+    <a href="https://linkedin.com" target="_blank">in LinkedIn</a>
+    <a href="https://github.com" target="_blank">⌥ GitHub</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Igor Augusto — Desenvolvido com ♥ e muito café.</p>
+  <p style="color:var(--accent)">Disponível para novos projetos</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── CURSOR ──
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .skill-card, .project-card, .checkbox-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '60px'; ring.style.height = '60px';
+      ring.style.opacity = '0.8';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // ── SCROLL BAR ──
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scrollBar').style.width = pct + '%';
+  });
+
+  // ── COUNTER ANIMATION ──
+  function animateCounter(el, target) {
+    let current = 0;
+    const step = target / 60;
+    const interval = setInterval(() => {
+      current += step;
+      if (current >= target) { el.textContent = target + '+'; clearInterval(interval); }
+      else el.textContent = Math.floor(current);
+    }, 25);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('[data-target]').forEach(el => {
+          animateCounter(el, parseInt(el.dataset.target));
+          el.removeAttribute('data-target');
+        });
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) observer.observe(heroStats);
+
+  // ── BUDGET RANGE ──
+  const ranges = [
+    'Até R$ 1k', 'R$ 1k–2k', 'R$ 2k–4k', 'R$ 4k–7k', 'R$ 7k–12k',
+    'R$ 12k–20k', 'R$ 20k–35k', 'R$ 35k–60k', 'R$ 60k–100k', 'R$ 100k+'
+  ];
+  function updateBudget(val) {
+    document.getElementById('budgetVal').textContent = ranges[val - 1];
+  }
+  updateBudget(3);
+
+  // ── FORM SUBMIT ──
+  function submitForm() {
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const tipo = document.getElementById('tipo').value;
+    const prazo = document.getElementById('prazo').value;
+    const descricao = document.getElementById('descricao').value.trim();
+
+    if (!nome || !email || !tipo || !prazo || !descricao) {
+      // Highlight empty required fields
+      [
+        { id: 'nome', val: nome }, { id: 'email', val: email },
+        { id: 'tipo', val: tipo }, { id: 'prazo', val: prazo },
+        { id: 'descricao', val: descricao }
+      ].forEach(f => {
+        const el = document.getElementById(f.id);
+        if (!f.val) {
+          el.style.borderColor = '#ff6b35';
+          el.addEventListener('input', () => el.style.borderColor = '', { once: true });
+        }
+      });
+      return;
+    }
+
+    // Simulate submit
+    document.getElementById('formContent').style.display = 'none';
+    const success = document.getElementById('formSuccess');
+    success.style.display = 'block';
+    success.style.animation = 'fadeUp 0.5s ease both';
+  }
+
+  // ── SCROLL REVEAL ──
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .project-card, .process-step, .budget-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    revealObserver.observe(el);
+  });
+</script>
