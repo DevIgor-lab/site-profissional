@@ -1,1008 +1,558 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Igor Augusto | Dev Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deploy Digital — Sites, Sistemas e Aplicativos sob Medida</title>
+<meta name="description" content="A Deploy Digital cria sites, sistemas e aplicativos rápidos, escaláveis e bonitos. Da ideia ao deploy, entregamos soluções digitais que funcionam de verdade.">
+<meta name="keywords" content="Deploy Digital, Deploy, desenvolvimento de sites, sistemas web, aplicativos, agência de tecnologia, desenvolvimento full-stack">
+<meta name="author" content="Deploy Digital">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.deploydigital.com.br/">
 
-    :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --card: #16161f;
-      --border: #2a2a3a;
-      --accent: #00ff99;
-      --accent2: #7c3aed;
-      --accent3: #ff6b35;
-      --text: #e8e8f0;
-      --muted: #6b6b80;
-      --font-display: 'Syne', sans-serif;
-      --font-mono: 'Space Mono', monospace;
-    }
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Deploy Digital">
+<meta property="og:title" content="Deploy Digital — Sites, Sistemas e Aplicativos sob Medida">
+<meta property="og:description" content="Da ideia ao deploy: desenvolvimento web full-stack focado em experiências rápidas, escaláveis e bonitas.">
+<meta property="og:url" content="https://www.deploydigital.com.br/">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://www.deploydigital.com.br/assets/og-image.jpg">
 
-    html { scroll-behavior: smooth; }
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deploy Digital — Sites, Sistemas e Aplicativos sob Medida">
+<meta name="twitter:description" content="Da ideia ao deploy: desenvolvimento web full-stack focado em experiências rápidas, escaláveis e bonitas.">
+<meta name="twitter:image" content="https://www.deploydigital.com.br/assets/og-image.jpg">
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-mono);
-      overflow-x: hidden;
-    }
+<!-- Favicon (substituir pelos arquivos reais em /assets) -->
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="alternate icon" href="assets/favicon.ico">
 
-    /* ── CURSOR ── */
-    .cursor {
-      width: 12px; height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed; pointer-events: none; z-index: 9999;
-      transition: transform 0.1s, opacity 0.2s;
-      mix-blend-mode: screen;
-    }
-    .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      position: fixed; pointer-events: none; z-index: 9998;
-      transition: transform 0.18s ease, width 0.2s, height 0.2s, opacity 0.2s;
-      opacity: 0.5;
-    }
+<!-- Performance: preconnect nas fontes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 1; opacity: 0.4;
-    }
+<link rel="stylesheet" href="style.css">
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 3rem;
-      background: rgba(10,10,15,0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-weight: 800; font-size: 1.4rem;
-      color: var(--accent);
-      letter-spacing: -1px;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--text); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted); text-decoration: none;
-      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
+<!-- Dados estruturados (Schema.org) para SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Deploy Digital",
+  "alternateName": "DeployDigital",
+  "url": "https://www.deploydigital.com.br/",
+  "logo": "https://www.deploydigital.com.br/assets/logo.svg",
+  "description": "Desenvolvimento de sites, sistemas e aplicativos. Da ideia ao deploy: soluções digitais rápidas, escaláveis e bonitas.",
+  "sameAs": [
+    "https://www.instagram.com/deploydigital.tech/",
+    "https://wa.me/5511943430590"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "telephone": "+55-11-94343-0590",
+    "areaServed": "BR",
+    "availableLanguage": ["Portuguese", "English", "Chinese"]
+  }
+}
+</script>
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 8rem 3rem 4rem;
-      position: relative; overflow: hidden;
-    }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity: 0.3;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-    }
-    .hero-glow {
-      position: absolute; width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(0,255,153,0.08) 0%, transparent 70%);
-      top: 10%; left: -10%; pointer-events: none;
-      animation: pulse 6s ease-in-out infinite;
-    }
-    .hero-glow2 {
-      position: absolute; width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
-      bottom: 0; right: -5%; pointer-events: none;
-      animation: pulse 8s ease-in-out infinite reverse;
-    }
-    @keyframes pulse { 0%,100%{opacity:0.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
-
-    .hero-tag {
-      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.7rem;
-      animation: fadeUp 0.8s ease both;
-    }
-    .hero-tag::before {
-      content: ''; width: 40px; height: 1px; background: var(--accent);
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: 800; line-height: 0.95;
-      letter-spacing: -3px;
-      animation: fadeUp 0.8s 0.1s ease both;
-    }
-    .hero-title .accent { color: var(--accent); }
-    .hero-title .stroke {
-      -webkit-text-stroke: 1px var(--text);
-      color: transparent;
-    }
-    .hero-sub {
-      margin-top: 2rem; max-width: 480px;
-      color: var(--muted); font-size: 0.9rem; line-height: 1.8;
-      animation: fadeUp 0.8s 0.2s ease both;
-    }
-    .hero-cta {
-      margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.3s ease both;
-    }
-    .btn {
-      padding: 0.85rem 2rem; border: none; cursor: pointer;
-      font-family: var(--font-mono); font-size: 0.8rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: all 0.25s;
-    }
-    .btn-primary {
-      background: var(--accent); color: #000;
-      font-weight: 700;
-    }
-    .btn-primary:hover { background: #00cc7a; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,255,153,0.25); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-    .hero-stats {
-      margin-top: 5rem;
-      display: flex; gap: 3rem; flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.4s ease both;
-    }
-    .stat { display: flex; flex-direction: column; gap: 0.2rem; }
-    .stat-num {
-      font-family: var(--font-display); font-size: 2.5rem;
-      font-weight: 800; color: var(--accent); line-height: 1;
-    }
-    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-    /* ── SECTION BASE ── */
-    section { position: relative; z-index: 2; }
-    .section-header {
-      display: flex; align-items: baseline; gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-    .section-num {
-      font-size: 0.75rem; color: var(--accent);
-      letter-spacing: 0.2em;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 800; letter-spacing: -1px;
-    }
-    .container { max-width: 1200px; margin: 0 auto; padding: 6rem 3rem; }
-
-    /* ── SKILLS ── */
-    #skills { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .skills-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;
-    }
-    .skill-card {
-      background: var(--card); border: 1px solid var(--border);
-      padding: 2rem; position: relative; overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
-      cursor: default;
-    }
-    .skill-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,255,153,0.04), transparent);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
-    .skill-card:hover::before { opacity: 1; }
-    .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-    .skill-name {
-      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .skill-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
-    .skill-tags {
-      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem;
-    }
-    .tag {
-      font-size: 0.7rem; padding: 0.2rem 0.6rem;
-      background: rgba(0,255,153,0.08);
-      border: 1px solid rgba(0,255,153,0.2);
-      color: var(--accent);
-    }
-
-    /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;
-    }
-    .project-card {
-      background: var(--card); border: 1px solid var(--border);
-      overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-    }
-    .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-    .project-thumb {
-      height: 200px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4rem; position: relative; overflow: hidden;
-    }
-    .project-thumb::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, var(--card));
-    }
-    .thumb-1 { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
-    .thumb-2 { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
-    .thumb-3 { background: linear-gradient(135deg, #0d0d0d, #1a0a2e, #2d1b69); }
-    .thumb-4 { background: linear-gradient(135deg, #0a1628, #1e3a5f, #0d7377); }
-    .thumb-5 { background: linear-gradient(135deg, #1a0a00, #3d1c02, #6b3322); }
-    .thumb-6 { background: linear-gradient(135deg, #0a1a0a, #0d2b0d, #1a4a1a); }
-    .project-body { padding: 1.5rem; }
-    .project-num {
-      font-size: 0.7rem; color: var(--accent);
-      letter-spacing: 0.2em; margin-bottom: 0.5rem;
-    }
-    .project-name {
-      font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
-    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-    .project-links { display: flex; gap: 1rem; }
-    .project-link {
-      font-size: 0.75rem; color: var(--muted); text-decoration: none;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.3rem;
-      transition: color 0.2s;
-    }
-    .project-link:hover { color: var(--accent); }
-
-    /* ── PROCESS ── */
-    #process { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .process-steps {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0;
-      border: 1px solid var(--border);
-    }
-    .process-step {
-      padding: 2.5rem 2rem; border-right: 1px solid var(--border);
-      position: relative; transition: background 0.3s;
-    }
-    .process-step:last-child { border-right: none; }
-    .process-step:hover { background: var(--card); }
-    .step-num {
-      font-family: var(--font-display); font-size: 3rem; font-weight: 800;
-      color: rgba(0,255,153,0.1); margin-bottom: 1rem; line-height: 1;
-    }
-    .step-title {
-      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
-      margin-bottom: 0.5rem; color: var(--accent);
-    }
-    .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
-
-    /* ── BUDGET SECTION ── */
-    #orcamento { background: var(--bg); }
-    .budget-wrapper {
-      display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start;
-    }
-    .budget-info h3 {
-      font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
-      margin-bottom: 1.5rem; color: var(--accent);
-    }
-    .budget-info p { font-size: 0.85rem; color: var(--muted); line-height: 1.9; margin-bottom: 1rem; }
-    .budget-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem; }
-    .budget-item {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1rem; border: 1px solid var(--border);
-      font-size: 0.8rem; transition: border-color 0.2s;
-    }
-    .budget-item:hover { border-color: var(--accent); }
-    .budget-item-icon { font-size: 1.2rem; width: 2rem; text-align: center; }
-    .budget-item-text { flex: 1; }
-    .budget-item-text strong { display: block; color: var(--text); margin-bottom: 0.2rem; }
-    .budget-item-text span { color: var(--muted); font-size: 0.75rem; }
-
-    /* ── FORM ── */
-    .budget-form {
-      background: var(--card); border: 1px solid var(--border);
-      padding: 2.5rem;
-    }
-    .form-title {
-      font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .form-subtitle { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
-    .form-group { margin-bottom: 1.5rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    label {
-      display: block; font-size: 0.75rem; color: var(--accent);
-      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
-    }
-    input, textarea, select {
-      width: 100%; background: var(--surface);
-      border: 1px solid var(--border); color: var(--text);
-      font-family: var(--font-mono); font-size: 0.85rem;
-      padding: 0.8rem 1rem; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      appearance: none;
-    }
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(0,255,153,0.08);
-    }
-    select option { background: var(--surface); }
-    textarea { resize: vertical; min-height: 100px; }
-
-    .form-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-    .checkbox-item {
-      display: flex; align-items: center; gap: 0.7rem;
-      padding: 0.7rem; border: 1px solid var(--border);
-      cursor: pointer; transition: border-color 0.2s, background 0.2s;
-      font-size: 0.8rem;
-    }
-    .checkbox-item:hover { border-color: var(--accent); background: rgba(0,255,153,0.03); }
-    .checkbox-item input[type="checkbox"] {
-      width: 16px; height: 16px; padding: 0; flex-shrink: 0;
-      accent-color: var(--accent);
-    }
-
-    .range-wrapper { display: flex; align-items: center; gap: 1rem; }
-    input[type="range"] {
-      flex: 1; height: 4px; padding: 0;
-      background: var(--border); border: none; cursor: pointer;
-      accent-color: var(--accent);
-    }
-    .range-val {
-      font-family: var(--font-display); font-weight: 700;
-      color: var(--accent); font-size: 1rem; min-width: 90px;
-    }
-
-    .form-submit {
-      margin-top: 2rem; width: 100%;
-      padding: 1rem; background: var(--accent); border: none;
-      color: #000; font-family: var(--font-display); font-size: 1rem;
-      font-weight: 800; letter-spacing: 0.05em; cursor: pointer;
-      transition: all 0.25s; text-transform: uppercase;
-    }
-    .form-submit:hover { background: #00cc7a; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,255,153,0.3); }
-
-    /* SUCCESS STATE */
-    .form-success {
-      display: none; text-align: center; padding: 3rem 1rem;
-    }
-    .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
-    .form-success h3 {
-      font-family: var(--font-display); font-size: 1.5rem;
-      font-weight: 800; color: var(--accent); margin-bottom: 0.5rem;
-    }
-    .form-success p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
-
-    /* ── CONTACT BAR ── */
-    .contact-bar {
-      background: var(--accent); color: #000;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 2rem 3rem; flex-wrap: wrap; gap: 1rem;
-    }
-    .contact-bar-text {
-      font-family: var(--font-display); font-size: clamp(1.2rem, 3vw, 2rem);
-      font-weight: 800;
-    }
-    .contact-links { display: flex; gap: 1.5rem; }
-    .contact-links a {
-      color: #000; text-decoration: none; font-size: 0.8rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.4rem;
-      border-bottom: 1px solid rgba(0,0,0,0.3);
-      padding-bottom: 2px; transition: border-color 0.2s;
-    }
-    .contact-links a:hover { border-color: #000; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--surface); border-top: 1px solid var(--border);
-      padding: 2rem 3rem;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem;
-    }
-    footer p { font-size: 0.75rem; color: var(--muted); }
-
-    /* ── SCROLL INDICATOR ── */
-    .scroll-bar {
-      position: fixed; top: 0; left: 0; height: 2px;
-      background: var(--accent); z-index: 200;
-      transition: width 0.1s;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero-title { letter-spacing: -2px; }
-      .budget-wrapper { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr 1fr; }
-      .process-step { border-bottom: 1px solid var(--border); }
-      .contact-bar { flex-direction: column; text-align: center; }
-    }
-    @media (max-width: 600px) {
-      .container { padding: 4rem 1.5rem; }
-      #hero { padding: 7rem 1.5rem 3rem; }
-      .form-checkboxes { grid-template-columns: 1fr; }
-      .hero-stats { gap: 2rem; }
-      .process-steps { grid-template-columns: 1fr; }
-      .budget-form { padding: 1.5rem; }
-    }
-  </style>
+<!-- Google Analytics (GA4) — substitua G-XXXXXXXXXX pelo ID real da propriedade -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="scroll-bar" id="scrollBar"></div>
+<a class="skip-link" href="#conteudo" data-i18n="a11y.skip">Pular para o conteúdo</a>
 
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">DEV<span>.IGOR</span></a>
-  <ul class="nav-links">
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projetos</a></li>
-    <li><a href="#process">Processo</a></li>
-    <li><a href="#orcamento">Orçamento</a></li>
-  </ul>
-</nav>
+<!-- ===================== HEADER / NAV ===================== -->
+<header class="site-header" id="topo">
+  <div class="container header-inner">
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
+    <a href="#topo" class="brand" aria-label="Deploy Digital — página inicial">
+      <svg class="brand-mark" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+        <rect x="1" y="1" width="38" height="38" rx="10" fill="url(#gradMark)"/>
+        <path d="M20 11 L20 24 M20 24 L14 18 M20 24 L26 18" stroke="#0a0c12" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M12 29 H28" stroke="#0a0c12" stroke-width="2.6" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="gradMark" x1="0" y1="0" x2="40" y2="40">
+            <stop offset="0" stop-color="#8b5cf6"/>
+            <stop offset="1" stop-color="#22d3ee"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-word">
+        <span class="brand-word-main">Deploy</span><span class="brand-word-accent">Digital</span>
+      </span>
+      <span class="status-pill" aria-hidden="true"><span class="status-dot"></span>online</span>
+    </a>
 
-  <div class="hero-tag">Disponível para projetos</div>
-  <h1 class="hero-title">
-    Código<br>
-    que <span class="accent">resolve</span><br>
-    <span class="stroke">problemas</span>
-  </h1>
-  <p class="hero-sub">
-    Desenvolvimento web full-stack focado em experiências rápidas, escaláveis e bonitas.
-    Da ideia ao deploy — entrego soluções que funcionam de verdade.
-  </p>
-  <div class="hero-cta">
-    <a href="#projects" class="btn btn-primary">→ Ver projetos</a>
-    <a href="#orcamento" class="btn btn-outline">Solicitar orçamento</a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <ul id="nav-list">
+        <li><a href="#inicio" class="nav-link" data-i18n="nav.home">Início</a></li>
+        <li><a href="#sobre" class="nav-link" data-i18n="nav.about">Sobre</a></li>
+        <li><a href="#servicos" class="nav-link" data-i18n="nav.services">Serviços</a></li>
+        <li><a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfólio</a></li>
+        <li><a href="#blog" class="nav-link" data-i18n="nav.blog">Blog</a></li>
+        <li><a href="#contato" class="nav-link" data-i18n="nav.contact">Contato</a></li>
+        <li><a href="#localizacao" class="nav-link" data-i18n="nav.location">Localização</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="Selecionar idioma">
+        <button type="button" class="lang-btn is-active" data-lang="pt">PT</button>
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="zh">中文</button>
+      </div>
+      <button type="button" class="btn btn-ghost" id="login-open" data-i18n="nav.login">Entrar</button>
+      <a class="btn btn-primary" href="https://wa.me/5511943430590" target="_blank" rel="noopener" data-i18n="nav.cta">
+        Fale no WhatsApp
+      </a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Abrir menu" data-i18n-aria="a11y.openMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
   </div>
+</header>
 
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num" data-target="47">0</span>
-      <span class="stat-label">Projetos entregues</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-target="5">0</span>
-      <span class="stat-label">Anos de experiência</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-target="30">0</span>
-      <span class="stat-label">Clientes satisfeitos</span>
-    </div>
-  </div>
-</section>
+<main id="conteudo">
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">01 /</span>
-      <h2 class="section-title">Stack & Habilidades</h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-icon">⚡</div>
-        <div class="skill-name">Frontend</div>
-        <div class="skill-desc">Interfaces modernas e responsivas com foco em performance e experiência do usuário.</div>
-        <div class="skill-tags">
-          <span class="tag">React</span><span class="tag">Next.js</span>
-          <span class="tag">TypeScript</span><span class="tag">Tailwind</span>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="inicio" aria-label="Apresentação">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Desenvolvimento web full-stack</p>
+        <h1 data-i18n="hero.title">Da ideia ao deploy, sem atalhos.</h1>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
+          Criamos sites, sistemas e aplicativos rápidos, escaláveis e bonitos — pensados para funcionar de verdade, do primeiro clique ao crescimento do seu negócio.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="https://wa.me/5511943430590" target="_blank" rel="noopener" data-i18n="hero.cta.whatsapp">
+            Falar no WhatsApp
+          </a>
+          <a class="btn btn-outline btn-lg" href="#contato" data-i18n="hero.cta.schedule">
+            Agendar reunião
+          </a>
         </div>
+        <dl class="hero-stats">
+          <div>
+            <dt data-i18n="hero.stat1.value">100%</dt>
+            <dd data-i18n="hero.stat1.label">Código próprio, sem atalhos de template</dd>
+          </div>
+          <div>
+            <dt data-i18n="hero.stat2.value">Full-stack</dt>
+            <dd data-i18n="hero.stat2.label">Do front ao back, um time só</dd>
+          </div>
+          <div>
+            <dt data-i18n="hero.stat3.value">Suporte</dt>
+            <dd data-i18n="hero.stat3.label">Manutenção contínua pós-entrega</dd>
+          </div>
+        </dl>
       </div>
-      <div class="skill-card">
-        <div class="skill-icon">🔧</div>
-        <div class="skill-name">Backend</div>
-        <div class="skill-desc">APIs robustas, arquitetura escalável e integrações que mantêm tudo funcionando.</div>
-        <div class="skill-tags">
-          <span class="tag">Node.js</span><span class="tag">Python</span>
-          <span class="tag">REST</span><span class="tag">GraphQL</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🗄️</div>
-        <div class="skill-name">Banco de Dados</div>
-        <div class="skill-desc">Modelagem eficiente de dados relacionais e não-relacionais para cada contexto.</div>
-        <div class="skill-tags">
-          <span class="tag">PostgreSQL</span><span class="tag">MongoDB</span>
-          <span class="tag">Redis</span><span class="tag">Prisma</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">☁️</div>
-        <div class="skill-name">Cloud & DevOps</div>
-        <div class="skill-desc">Deploy, CI/CD e infraestrutura para sistemas confiáveis em produção.</div>
-        <div class="skill-tags">
-          <span class="tag">AWS</span><span class="tag">Docker</span>
-          <span class="tag">Vercel</span><span class="tag">GitHub Actions</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">📱</div>
-        <div class="skill-name">Mobile</div>
-        <div class="skill-desc">Aplicativos nativos e híbridos para iOS e Android com experiência fluida.</div>
-        <div class="skill-tags">
-          <span class="tag">React Native</span><span class="tag">Expo</span>
-          <span class="tag">PWA</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🤖</div>
-        <div class="skill-name">Integrações & IA</div>
-        <div class="skill-desc">Automações, chatbots, APIs externas e recursos de inteligência artificial aplicada.</div>
-        <div class="skill-tags">
-          <span class="tag">OpenAI</span><span class="tag">Webhooks</span>
-          <span class="tag">Zapier</span><span class="tag">n8n</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">02 /</span>
-      <h2 class="section-title">Projetos</h2>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-thumb thumb-1">🛒</div>
-        <div class="project-body">
-          <div class="project-num">P.01</div>
-          <div class="project-name">E-commerce Platform</div>
-          <div class="project-desc">Plataforma completa de e-commerce com painel admin, gestão de estoque e gateway de pagamento integrado.</div>
-          <div class="project-stack">
-            <span class="tag">Next.js</span><span class="tag">Stripe</span><span class="tag">PostgreSQL</span>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="terminal-title">deploy — bash</span>
           </div>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb thumb-2">📊</div>
-        <div class="project-body">
-          <div class="project-num">P.02</div>
-          <div class="project-name">Dashboard Analytics</div>
-          <div class="project-desc">Dashboard em tempo real com visualizações de dados, relatórios automáticos e alertas configuráveis.</div>
-          <div class="project-stack">
-            <span class="tag">React</span><span class="tag">D3.js</span><span class="tag">WebSocket</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb thumb-3">🤝</div>
-        <div class="project-body">
-          <div class="project-num">P.03</div>
-          <div class="project-name">SaaS CRM</div>
-          <div class="project-desc">Sistema de gestão de clientes multi-tenant com automações de marketing e pipeline de vendas.</div>
-          <div class="project-stack">
-            <span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Redis</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb thumb-4">💬</div>
-        <div class="project-body">
-          <div class="project-num">P.04</div>
-          <div class="project-name">Chat em Tempo Real</div>
-          <div class="project-desc">Aplicativo de mensagens com salas, canais, envio de arquivos e notificações push.</div>
-          <div class="project-stack">
-            <span class="tag">Socket.io</span><span class="tag">React</span><span class="tag">AWS S3</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb thumb-5">🏥</div>
-        <div class="project-body">
-          <div class="project-num">P.05</div>
-          <div class="project-name">Sistema de Agendamento</div>
-          <div class="project-desc">Plataforma de agendamento para clínicas com confirmação automática, lembretes por WhatsApp e prontuário digital.</div>
-          <div class="project-stack">
-            <span class="tag">Next.js</span><span class="tag">Twilio</span><span class="tag">Prisma</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb thumb-6">📱</div>
-        <div class="project-body">
-          <div class="project-num">P.06</div>
-          <div class="project-name">App de Delivery</div>
-          <div class="project-desc">Aplicativo móvel de delivery com rastreamento em tempo real, múltiplos estabelecimentos e sistema de avaliações.</div>
-          <div class="project-stack">
-            <span class="tag">React Native</span><span class="tag">Maps API</span><span class="tag">Node.js</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
+          <pre class="terminal-body"><code id="terminal-output"></code><span class="cursor">▍</span></pre>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROCESS -->
-<section id="process">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">03 /</span>
-      <h2 class="section-title">Como trabalho</h2>
-    </div>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-num">01</div>
-        <div class="step-title">Briefing</div>
-        <div class="step-desc">Entendo sua necessidade, público-alvo, escopo e restrições do projeto. Aqui nasce o alinhamento.</div>
+  <!-- ===================== SOBRE ===================== -->
+  <section class="section" id="sobre" aria-labelledby="sobre-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="sobre-title" data-i18n="about.title">Quem coloca sua ideia no ar</h2>
+        <p data-i18n="about.text">
+          A Deploy Digital nasceu para encurtar a distância entre um bom plano e um produto digital funcionando. Somos um time full-stack: cuidamos do design, do código e da infraestrutura, para que o seu site, sistema ou aplicativo saia do papel — e continue evoluindo depois do lançamento.
+        </p>
       </div>
-      <div class="process-step">
-        <div class="step-num">02</div>
-        <div class="step-title">Proposta</div>
-        <div class="step-desc">Documento técnico com escopo, prazo, tecnologias e investimento. Sem surpresas.</div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">03</div>
-        <div class="step-title">Desenvolvimento</div>
-        <div class="step-desc">Sprints semanais com entregas parciais e comunicação constante via canal direto.</div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">04</div>
-        <div class="step-title">Revisão</div>
-        <div class="step-desc">Rodadas de ajuste com sua participação ativa. O produto final é o que você aprova.</div>
-      </div>
-      <div class="process-step" style="border-right:none">
-        <div class="step-num">05</div>
-        <div class="step-title">Deploy & Suporte</div>
-        <div class="step-desc">Publicação, documentação e 30 dias de suporte gratuito pós-entrega.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- BUDGET -->
-<section id="orcamento">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">04 /</span>
-      <h2 class="section-title">Solicitar Orçamento</h2>
+      <ol class="process">
+        <li class="process-step">
+          <span class="process-index">01</span>
+          <h3 data-i18n="about.step1.title">Descoberta</h3>
+          <p data-i18n="about.step1.text">Entendemos seu negócio, seu público e o problema que o projeto precisa resolver.</p>
+        </li>
+        <li class="process-step">
+          <span class="process-index">02</span>
+          <h3 data-i18n="about.step2.title">Design</h3>
+          <p data-i18n="about.step2.text">Desenhamos uma experiência própria, alinhada à sua marca e fácil de usar.</p>
+        </li>
+        <li class="process-step">
+          <span class="process-index">03</span>
+          <h3 data-i18n="about.step3.title">Desenvolvimento</h3>
+          <p data-i18n="about.step3.text">Construímos com código limpo, performance e responsividade de verdade.</p>
+        </li>
+        <li class="process-step">
+          <span class="process-index">04</span>
+          <h3 data-i18n="about.step4.title">Deploy &amp; suporte</h3>
+          <p data-i18n="about.step4.text">Publicamos, acompanhamos os resultados e seguimos evoluindo com você.</p>
+        </li>
+      </ol>
     </div>
-    <div class="budget-wrapper">
-      <div class="budget-info">
-        <h3>Vamos construir algo juntos?</h3>
-        <p>Preencha o formulário ao lado com os detalhes do seu projeto. Respondo em até 24 horas com uma proposta personalizada.</p>
-        <p>Aceito projetos de qualquer porte — desde landing pages até sistemas complexos. Cada projeto recebe atenção total.</p>
-        <div class="budget-items">
-          <div class="budget-item">
-            <span class="budget-item-icon">⚡</span>
-            <div class="budget-item-text">
-              <strong>Resposta rápida</strong>
-              <span>Retorno em até 24h úteis</span>
+  </section>
+
+  <!-- ===================== SERVIÇOS ===================== -->
+  <section class="section section-alt" id="servicos" aria-labelledby="servicos-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="servicos-title" data-i18n="services.title">Serviços</h2>
+        <p data-i18n="services.subtitle">Escolha o ponto de partida — e fale com a gente para um orçamento sob medida.</p>
+      </div>
+
+      <div class="card-grid" id="services-grid">
+        <!-- Cards gerados via HTML estático (conteúdo real); ícones em SVG inline -->
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg>
+          </span>
+          <h3 data-i18n="services.sites.title">Sites institucionais</h3>
+          <p data-i18n="services.sites.text">Sites rápidos e responsivos que apresentam sua empresa e geram contato qualificado.</p>
+          <a class="card-link" href="https://wa.me/5511943430590?text=Quero%20um%20site%20institucional" target="_blank" rel="noopener" data-i18n="services.cta">Pedir orçamento</a>
+        </article>
+
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          </span>
+          <h3 data-i18n="services.systems.title">Sistemas web</h3>
+          <p data-i18n="services.systems.text">Plataformas e painéis sob medida para organizar e automatizar sua operação.</p>
+          <a class="card-link" href="https://wa.me/5511943430590?text=Quero%20um%20sistema%20web" target="_blank" rel="noopener" data-i18n="services.cta">Pedir orçamento</a>
+        </article>
+
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          </span>
+          <h3 data-i18n="services.apps.title">Aplicativos</h3>
+          <p data-i18n="services.apps.text">Apps web e mobile pensados para performance e uma boa experiência de uso.</p>
+          <a class="card-link" href="https://wa.me/5511943430590?text=Quero%20um%20aplicativo" target="_blank" rel="noopener" data-i18n="services.cta">Pedir orçamento</a>
+        </article>
+
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+          </span>
+          <h3 data-i18n="services.ecommerce.title">Loja virtual</h3>
+          <p data-i18n="services.ecommerce.text">Vitrine digital para vender seus produtos ou serviços com um checkout simples.</p>
+          <a class="card-link" href="https://wa.me/5511943430590?text=Quero%20uma%20loja%20virtual" target="_blank" rel="noopener" data-i18n="services.cta">Pedir orçamento</a>
+        </article>
+
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 7l9 5 9-5-9-5Z"/><path d="M3 12l9 5 9-5M3 17l9 5 9-5"/></svg>
+          </span>
+          <h3 data-i18n="services.maintenance.title">Manutenção &amp; suporte</h3>
+          <p data-i18n="services.maintenance.text">Acompanhamento contínuo, atualizações e melhorias depois do site no ar.</p>
+          <a class="card-link" href="https://wa.me/5511943430590?text=Quero%20saber%20sobre%20manuten%C3%A7%C3%A3o" target="_blank" rel="noopener" data-i18n="services.cta">Pedir orçamento</a>
+        </article>
+
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20c4.4-2.4 8-6 8-11a8 8 0 0 0-16 0c0 5 3.6 8.6 8 11Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          </span>
+          <h3 data-i18n="services.consulting.title">Consultoria digital</h3>
+          <p data-i18n="services.consulting.text">Diagnóstico e plano de ação para sua presença digital sair do lugar.</p>
+          <a class="card-link" href="https://wa.me/5511943430590?text=Quero%20uma%20consultoria%20digital" target="_blank" rel="noopener" data-i18n="services.cta">Pedir orçamento</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PORTFÓLIO ===================== -->
+  <section class="section" id="portfolio" aria-labelledby="portfolio-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="portfolio-title" data-i18n="portfolio.title">Portfólio</h2>
+        <p data-i18n="portfolio.subtitle">Alguns projetos recentes — substitua pelos cases reais da Deploy Digital.</p>
+      </div>
+
+      <div class="carousel" data-carousel aria-roledescription="carrossel" aria-label="Projetos do portfólio">
+        <div class="carousel-track" id="portfolio-track">
+          <figure class="carousel-slide">
+            <div class="media-placeholder" role="img" aria-label="Imagem do projeto: Loja de moda online">
+              <span data-i18n="portfolio.placeholder">Imagem do projeto</span>
             </div>
-          </div>
-          <div class="budget-item">
-            <span class="budget-item-icon">📋</span>
-            <div class="budget-item-text">
-              <strong>Proposta detalhada</strong>
-              <span>Escopo, prazo e investimento</span>
+            <figcaption>
+              <h3 data-i18n="portfolio.p1.title">Loja de moda online</h3>
+              <p data-i18n="portfolio.p1.text">E-commerce com catálogo dinâmico e checkout otimizado para conversão.</p>
+            </figcaption>
+          </figure>
+          <figure class="carousel-slide">
+            <div class="media-placeholder" role="img" aria-label="Imagem do projeto: Sistema de agendamento para clínicas">
+              <span data-i18n="portfolio.placeholder">Imagem do projeto</span>
             </div>
-          </div>
-          <div class="budget-item">
-            <span class="budget-item-icon">🔒</span>
-            <div class="budget-item-text">
-              <strong>NDA disponível</strong>
-              <span>Sigilo garantido ao seu projeto</span>
+            <figcaption>
+              <h3 data-i18n="portfolio.p2.title">Sistema de agendamento</h3>
+              <p data-i18n="portfolio.p2.text">Painel para clínicas organizarem consultas e reduzirem faltas.</p>
+            </figcaption>
+          </figure>
+          <figure class="carousel-slide">
+            <div class="media-placeholder" role="img" aria-label="Imagem do projeto: Aplicativo de logística">
+              <span data-i18n="portfolio.placeholder">Imagem do projeto</span>
             </div>
-          </div>
-          <div class="budget-item">
-            <span class="budget-item-icon">🎯</span>
-            <div class="budget-item-text">
-              <strong>Orçamento sem compromisso</strong>
-              <span>Conheça as possibilidades antes de decidir</span>
+            <figcaption>
+              <h3 data-i18n="portfolio.p3.title">App de logística</h3>
+              <p data-i18n="portfolio.p3.text">Aplicativo para rastreio de entregas em tempo real.</p>
+            </figcaption>
+          </figure>
+          <figure class="carousel-slide">
+            <div class="media-placeholder" role="img" aria-label="Imagem do projeto: Site institucional para uma Barbearia.">
+              <span data-i18n="portfolio.placeholder">Imagem do projeto</span>
             </div>
-          </div>
+            <figcaption>
+              <h3 data-i18n="portfolio.p4.title">Site institucional</h3>
+              <p data-i18n="portfolio.p4.text">Presença Digital para uma Barbearia, com foco em geração de leads.</p>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" class="carousel-btn" data-dir="-1" aria-label="Projeto anterior" data-i18n-aria="a11y.prev">‹</button>
+          <div class="carousel-dots" id="portfolio-dots"></div>
+          <button type="button" class="carousel-btn" data-dir="1" aria-label="Próximo projeto" data-i18n-aria="a11y.next">›</button>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- FORM -->
-      <div class="budget-form">
-        <div id="formContent">
-          <div class="form-title">Conte sobre seu projeto</div>
-          <div class="form-subtitle">// Campos marcados são essenciais para o orçamento</div>
+  <!-- ===================== DEPOIMENTOS ===================== -->
+  <section class="section section-alt" id="depoimentos" aria-labelledby="depo-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="depo-title" data-i18n="testimonials.title">O que dizem nossos clientes</h2>
+      </div>
 
+      <div class="carousel" data-carousel aria-roledescription="carrossel" aria-label="Depoimentos de clientes">
+        <div class="carousel-track" id="testimonials-track">
+          <blockquote class="carousel-slide testimonial">
+            <p data-i18n="testimonials.t1.text">"A equipe entendeu exatamente o que a gente precisava. O site ficou rápido e as vendas melhoraram já no primeiro mês."</p>
+            <footer>
+              <span class="avatar-placeholder" aria-hidden="true"></span>
+              <cite><span data-i18n="testimonials.t1.name">Cliente Deploy Digital</span> · <span data-i18n="testimonials.t1.role">Loja de moda online</span></cite>
+            </footer>
+          </blockquote>
+          <blockquote class="carousel-slide testimonial">
+            <p data-i18n="testimonials.t2.text">"Profissionais atenciosos do início ao fim. O sistema de agendamento resolveu um problema que tínhamos há anos."</p>
+            <footer>
+              <span class="avatar-placeholder" aria-hidden="true"></span>
+              <cite><span data-i18n="testimonials.t2.name">Cliente Deploy Digital</span> · <span data-i18n="testimonials.t2.role">Clínica de estética</span></cite>
+            </footer>
+          </blockquote>
+          <blockquote class="carousel-slide testimonial">
+            <p data-i18n="testimonials.t3.text">"Comunicação clara em cada etapa do projeto. Recomendo para quem quer um trabalho sério de verdade."</p>
+            <footer>
+              <span class="avatar-placeholder" aria-hidden="true"></span>
+              <cite><span data-i18n="testimonials.t3.name">Cliente Deploy Digital</span> · <span data-i18n="testimonials.t3.role">Transportadora regional</span></cite>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" class="carousel-btn" data-dir="-1" aria-label="Depoimento anterior" data-i18n-aria="a11y.prev">‹</button>
+          <div class="carousel-dots" id="testimonials-dots"></div>
+          <button type="button" class="carousel-btn" data-dir="1" aria-label="Próximo depoimento" data-i18n-aria="a11y.next">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BLOG ===================== -->
+  <section class="section" id="blog" aria-labelledby="blog-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="blog-title" data-i18n="blog.title">Blog</h2>
+        <p data-i18n="blog.subtitle">Conteúdo sobre tecnologia, direto daqui e do nosso Instagram.</p>
+      </div>
+
+      <div class="card-grid card-grid-blog">
+        <article class="card blog-card">
+          <div class="media-placeholder media-placeholder-sm" role="img" aria-label="Imagem da postagem do blog">
+            <span data-i18n="blog.placeholder">Imagem da postagem</span>
+          </div>
+          <p class="card-tag" data-i18n="blog.p1.tag">Performance</p>
+          <h3 data-i18n="blog.p1.title">5 sinais de que seu site está lento</h3>
+          <p data-i18n="blog.p1.text">Como identificar (e corrigir) os principais gargalos de performance.</p>
+        </article>
+        <article class="card blog-card">
+          <div class="media-placeholder media-placeholder-sm" role="img" aria-label="Imagem da postagem do blog">
+            <span data-i18n="blog.placeholder">Imagem da postagem</span>
+          </div>
+          <p class="card-tag" data-i18n="blog.p2.tag">Negócios</p>
+          <h3 data-i18n="blog.p2.title">Site ou sistema: por onde começar?</h3>
+          <p data-i18n="blog.p2.text">Um guia rápido para decidir o primeiro passo da sua presença digital.</p>
+        </article>
+        <article class="card blog-card">
+          <div class="media-placeholder media-placeholder-sm" role="img" aria-label="Imagem da postagem do blog">
+            <span data-i18n="blog.placeholder">Imagem da postagem</span>
+          </div>
+          <p class="card-tag" data-i18n="blog.p3.tag">Bastidores</p>
+          <h3 data-i18n="blog.p3.title">Como organizamos um projeto, do briefing ao deploy</h3>
+          <p data-i18n="blog.p3.text">Um olhar por dentro do nosso processo de trabalho.</p>
+        </article>
+      </div>
+
+      <p class="blog-instagram-note" data-i18n="blog.instagramNote">
+        Acompanhe também as novidades no nosso Instagram.
+      </p>
+      <a class="btn btn-outline" href="https://www.instagram.com/deploydigital.tech/" target="_blank" rel="noopener" data-i18n="blog.instagramCta">
+        Seguir no Instagram
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== CONTATO ===================== -->
+  <section class="section section-alt" id="contato" aria-labelledby="contato-title">
+    <div class="container contact-grid">
+      <div>
+        <div class="section-head section-head-left">
+          <h2 id="contato-title" data-i18n="contact.title">Vamos colocar seu projeto no ar</h2>
+          <p data-i18n="contact.subtitle">Preencha o formulário ou fale direto pelo WhatsApp — respondemos rápido.</p>
+        </div>
+
+        <form id="contact-form" class="contact-form" novalidate>
           <div class="form-row">
-            <div class="form-group">
-              <label for="nome">Nome *</label>
-              <input type="text" id="nome" placeholder="Seu nome" required>
-            </div>
-            <div class="form-group">
-              <label for="empresa">Empresa</label>
-              <input type="text" id="empresa" placeholder="Nome da empresa">
-            </div>
+            <label for="name" data-i18n="contact.form.name">Nome</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+            <span class="form-error" id="name-error" role="alert"></span>
           </div>
-
           <div class="form-row">
-            <div class="form-group">
-              <label for="email">E-mail *</label>
-              <input type="email" id="email" placeholder="igoraugusto300al@gmail.com" required>
-            </div>
-            <div class="form-group">
-              <label for="whatsapp">WhatsApp</label>
-              <input type="tel" id="whatsapp" placeholder="(11) 94343-0590">
-            </div>
+            <label for="email" data-i18n="contact.form.email">E-mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+            <span class="form-error" id="email-error" role="alert"></span>
+          </div>
+          <div class="form-row">
+            <label for="phone" data-i18n="contact.form.phone">Telefone / WhatsApp</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+          <div class="form-row">
+            <label for="message" data-i18n="contact.form.message">Mensagem</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <span class="form-error" id="message-error" role="alert"></span>
           </div>
 
-          <div class="form-group">
-            <label for="tipo">Tipo de projeto *</label>
-            <select id="tipo" required>
-              <option value="">Selecione...</option>
-              <option value="site">Site institucional / landing page</option>
-              <option value="ecommerce">E-commerce / loja virtual</option>
-              <option value="sistema">Sistema web / SaaS / painel</option>
-              <option value="app">Aplicativo mobile</option>
-              <option value="api">API / backend / integração</option>
-              <option value="automacao">Automação / chatbot / IA</option>
-              <option value="outro">Outro</option>
-            </select>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg" data-i18n="contact.form.submitWhatsapp">
+              Enviar pelo WhatsApp
+            </button>
+            <button type="submit" class="btn btn-outline btn-lg" data-action="email" data-i18n="contact.form.submitEmail">
+              Enviar por e-mail
+            </button>
           </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
 
-          <div class="form-group">
-            <label>Funcionalidades desejadas</label>
-            <div class="form-checkboxes">
-              <label class="checkbox-item">
-                <input type="checkbox" value="login"> Login / autenticação
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" value="pagamento"> Pagamento online
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" value="painel"> Painel administrativo
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" value="api"> Integração com API
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" value="notificacoes"> Notificações / e-mails
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" value="relatorios"> Relatórios / dashboard
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" value="mobile"> Versão mobile
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" value="ia"> Recursos de IA
-              </label>
-            </div>
-          </div>
+      <aside class="contact-side">
+        <h3 data-i18n="contact.side.title">Outros canais</h3>
+        <ul class="contact-list">
+          <li>
+            <span data-i18n="contact.side.whatsapp">WhatsApp</span>
+            <a href="https://wa.me/5511943430590" target="_blank" rel="noopener">+55 11 94343-0590</a>
+          </li>
+          <li>
+            <span data-i18n="contact.side.email">E-mail</span>
+            <a href="mailto:contato@deploydigital.com.br">contato@deploydigital.com.br</a>
+          </li>
+          <li>
+            <span data-i18n="contact.side.instagram">Instagram</span>
+            <a href="https://www.instagram.com/deploydigital.tech/" target="_blank" rel="noopener">@deploydigital.tech</a>
+          </li>
+        </ul>
+        <button type="button" class="btn btn-ghost" id="login-open-2" data-i18n="nav.login">Área do cliente</button>
+      </aside>
+    </div>
+  </section>
 
-          <div class="form-group">
-            <label for="prazo">Prazo desejado *</label>
-            <select id="prazo" required>
-              <option value="">Selecione...</option>
-              <option value="urgente">Urgente (até 2 semanas)</option>
-              <option value="1mes">1 mês</option>
-              <option value="2meses">2 meses</option>
-              <option value="3meses">3 meses</option>
-              <option value="flexivel">Flexível</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Faixa de investimento *</label>
-            <div class="range-wrapper">
-              <input type="range" id="budget" min="1" max="10" value="3" step="1" oninput="updateBudget(this.value)">
-              <span class="range-val" id="budgetVal">R$ 3k–5k</span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="descricao">Descreva seu projeto *</label>
-            <textarea id="descricao" rows="4" placeholder="Qual problema você quer resolver? Quem vai usar? Tem referências visuais ou funcionais?" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="referencias">Links de referência</label>
-            <input type="text" id="referencias" placeholder="https://... (sites, apps, figma, notion...)">
-          </div>
-
-          <button class="form-submit" onclick="submitForm()">
-            → Enviar solicitação de orçamento
-          </button>
-        </div>
-
-        <div class="form-success" id="formSuccess">
-          <div class="success-icon">✅</div>
-          <h3>Solicitação enviada!</h3>
-          <p>Recebi seu pedido de orçamento e entrarei em contato em até <strong style="color:var(--accent)">24 horas úteis</strong> com uma proposta personalizada.<br><br>Fique de olho no seu e-mail — e se preferir algo mais rápido, me chame no WhatsApp: (11) 94343-0590.</p>
-        </div>
+  <!-- ===================== LOCALIZAÇÃO ===================== -->
+  <section class="section" id="localizacao" aria-labelledby="local-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="local-title" data-i18n="location.title">Localização</h2>
+        <p data-i18n="location.subtitle">Atendemos remotamente todo o Brasil — substitua o mapa abaixo pelo endereço real da Deploy Digital.</p>
+      </div>
+      <div class="map-wrapper">
+        <iframe
+          title="Mapa de localização da Deploy Digital"
+          src="https://www.google.com/maps?q=Bragan%C3%A7a%20Paulista%2C%20SP&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT BAR -->
-<div class="contact-bar">
-  <div class="contact-bar-text">Pronto para começar? Vamos conversar.</div>
-  <div class="contact-links">
-    <a href="/cdn-cgi/l/email-protection#1e6d7b6b5e7b737f7772307d7173">✉ E-mail</a>
-    <a href="https://wa.me/5511943430590" target="_blank">💬 WhatsApp</a>
-    <a href="https://linkedin.com" target="_blank">in LinkedIn</a>
-    <a href="https://github.com" target="_blank">⌥ GitHub</a>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-word"><span class="brand-word-main">Deploy</span><span class="brand-word-accent">Digital</span></span>
+      <p data-i18n="footer.tagline">Da ideia ao deploy.</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Links do rodapé">
+      <a href="#sobre" data-i18n="nav.about">Sobre</a>
+      <a href="#servicos" data-i18n="nav.services">Serviços</a>
+      <a href="#portfolio" data-i18n="nav.portfolio">Portfólio</a>
+      <a href="#blog" data-i18n="nav.blog">Blog</a>
+      <a href="#contato" data-i18n="nav.contact">Contato</a>
+    </nav>
+
+    <div class="footer-social">
+      <a href="https://wa.me/5511943430590" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.1 1.6 2.4 3.8 3.4.5.2.9.4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1 0-.1-.2-.2-.4-.3Z"/></svg>
+      </a>
+      <a href="https://instagram.com/deploydigital.tech" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; <span id="year"></span> Deploy Digital. <span data-i18n="footer.rights">Todos os direitos reservados.</span></p>
+    <p class="footer-domain">deploydigital.com.br</p>
+  </div>
+</footer>
+
+<!-- Botão flutuante do WhatsApp -->
+<a class="whatsapp-float" href="https://wa.me/5511943430590?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais." target="_blank" rel="noopener" aria-label="Falar no WhatsApp" data-i18n-aria="a11y.whatsapp">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Z"/></svg>
+</a>
+
+<!-- Modal de login (front-end apenas; requer backend para autenticação real) -->
+<div class="modal-overlay" id="login-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <button type="button" class="modal-close" id="login-close" aria-label="Fechar">&times;</button>
+    <h2 id="login-title" data-i18n="login.title">Área do cliente</h2>
+    <p class="modal-note" data-i18n="login.note">Em breve: acompanhe aqui o andamento do seu projeto.</p>
+    <form id="login-form">
+      <div class="form-row">
+        <label for="login-email" data-i18n="login.email">E-mail</label>
+        <input type="email" id="login-email" name="login-email" autocomplete="email">
+      </div>
+      <div class="form-row">
+        <label for="login-password" data-i18n="login.password">Senha</label>
+        <input type="password" id="login-password" name="login-password" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary" data-i18n="login.submit">Entrar</button>
+    </form>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Igor Augusto — Desenvolvido com ♥ e muito café.</p>
-  <p style="color:var(--accent)">Disponível para novos projetos</p>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ── CURSOR ──
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx - 6 + 'px';
-    cursor.style.top = my - 6 + 'px';
-  });
-
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx - 18 + 'px';
-    ring.style.top = ry - 18 + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  document.querySelectorAll('a, button, .skill-card, .project-card, .checkbox-item').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      ring.style.width = '60px'; ring.style.height = '60px';
-      ring.style.opacity = '0.8';
-    });
-    el.addEventListener('mouseleave', () => {
-      ring.style.width = '36px'; ring.style.height = '36px';
-      ring.style.opacity = '0.5';
-    });
-  });
-
-  // ── SCROLL BAR ──
-  window.addEventListener('scroll', () => {
-    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    document.getElementById('scrollBar').style.width = pct + '%';
-  });
-
-  // ── COUNTER ANIMATION ──
-  function animateCounter(el, target) {
-    let current = 0;
-    const step = target / 60;
-    const interval = setInterval(() => {
-      current += step;
-      if (current >= target) { el.textContent = target + '+'; clearInterval(interval); }
-      else el.textContent = Math.floor(current);
-    }, 25);
-  }
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        document.querySelectorAll('[data-target]').forEach(el => {
-          animateCounter(el, parseInt(el.dataset.target));
-          el.removeAttribute('data-target');
-        });
-        observer.disconnect();
-      }
-    });
-  }, { threshold: 0.5 });
-
-  const heroStats = document.querySelector('.hero-stats');
-  if (heroStats) observer.observe(heroStats);
-
-  // ── BUDGET RANGE ──
-  const ranges = [
-    'Até R$ 1k', 'R$ 1k–2k', 'R$ 2k–4k', 'R$ 4k–7k', 'R$ 7k–12k',
-    'R$ 12k–20k', 'R$ 20k–35k', 'R$ 35k–60k', 'R$ 60k–100k', 'R$ 100k+'
-  ];
-  function updateBudget(val) {
-    document.getElementById('budgetVal').textContent = ranges[val - 1];
-  }
-  updateBudget(3);
-
-  // ── FORM SUBMIT ──
-  function submitForm() {
-    const nome = document.getElementById('nome').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const tipo = document.getElementById('tipo').value;
-    const prazo = document.getElementById('prazo').value;
-    const descricao = document.getElementById('descricao').value.trim();
-
-    if (!nome || !email || !tipo || !prazo || !descricao) {
-      // Highlight empty required fields
-      [
-        { id: 'nome', val: nome }, { id: 'email', val: email },
-        { id: 'tipo', val: tipo }, { id: 'prazo', val: prazo },
-        { id: 'descricao', val: descricao }
-      ].forEach(f => {
-        const el = document.getElementById(f.id);
-        if (!f.val) {
-          el.style.borderColor = '#ff6b35';
-          el.addEventListener('input', () => el.style.borderColor = '', { once: true });
-        }
-      });
-      return;
-    }
-
-    // Simulate submit
-    document.getElementById('formContent').style.display = 'none';
-    const success = document.getElementById('formSuccess');
-    success.style.display = 'block';
-    success.style.animation = 'fadeUp 0.5s ease both';
-  }
-
-  // ── SCROLL REVEAL ──
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.skill-card, .project-card, .process-step, .budget-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    revealObserver.observe(el);
-  });
-</script>
+<script src="script.js" defer></script>
+</body>
+</html>
